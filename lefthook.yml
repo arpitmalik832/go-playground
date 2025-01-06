@@ -1,5 +1,7 @@
-pre-push:
-  parallel: true
+commit-msg:
+  commands:
+    commitlint:
+      run: commitlint lint
 
 pre-commit:
   parallel: true
@@ -8,3 +10,9 @@ pre-commit:
       run: make fileSizes-pre-commit
     lint:
       run: make lint-pre-commit
+
+pre-push:
+  parallel: true
+  commands:
+    validate-branch-name:
+      run: make validate-branch-name

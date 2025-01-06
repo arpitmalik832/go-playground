@@ -5,6 +5,7 @@ go 1.21
 toolchain go1.23.4
 
 require (
+	github.com/conventionalcommit/commitlint v0.10.1
 	github.com/evilmartians/lefthook v1.6.1
 	github.com/golangci/golangci-lint v1.42.1
 )
@@ -12,7 +13,7 @@ require (
 require (
 	4d63.com/gochecknoglobals v0.0.0-20201008074935-acfc0b28355a // indirect
 	github.com/Antonboom/errname v0.1.4 // indirect
-	github.com/BurntSushi/toml v0.4.1 // indirect
+	github.com/BurntSushi/toml v1.1.0 // indirect
 	github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
@@ -29,6 +30,8 @@ require (
 	github.com/charithe/durationcheck v0.0.8 // indirect
 	github.com/charmbracelet/lipgloss v0.6.0 // indirect
 	github.com/chavacava/garif v0.0.0-20210405164556-e8a0a408d6af // indirect
+	github.com/conventionalcommit/parser v0.7.1 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/creack/pty v1.1.18 // indirect
 	github.com/daixiang0/gci v0.2.9 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -114,6 +117,7 @@ require (
 	github.com/quasilyte/go-ruleguard v0.3.4 // indirect
 	github.com/quasilyte/regex/syntax v0.0.0-20200407221936-30656e2c4a95 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/ryancurrah/gomodguard v1.2.3 // indirect
 	github.com/ryanrolds/sqlclosecheck v0.3.0 // indirect
 	github.com/sanposhiho/wastedassign/v2 v2.0.6 // indirect
@@ -139,7 +143,9 @@ require (
 	github.com/tommy-muehle/go-mnd/v2 v2.4.0 // indirect
 	github.com/ultraware/funlen v0.0.3 // indirect
 	github.com/ultraware/whitespace v0.0.4 // indirect
+	github.com/urfave/cli/v2 v2.11.1 // indirect
 	github.com/uudashr/gocognit v1.0.5 // indirect
+	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	github.com/yeya24/promlinter v0.1.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
