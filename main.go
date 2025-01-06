@@ -7,8 +7,7 @@ import (
 )
 
 func main() {
-	// fmt.Println(quote.Opt())
-	// fmt.Println("The meaning of life:", life.Meaning())
+	greeting()
 
 	var o octocat.Octocat
 	err := octocat.Get(&o)

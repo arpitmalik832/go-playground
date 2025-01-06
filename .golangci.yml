@@ -1,0 +1,17 @@
+linters:
+  enable:
+    - gofmt # Formatting
+    - govet # Suspicious constructs
+    - errcheck # Error handling
+    - staticcheck # Static analysis
+    - gosimple # Simplifications
+    - unused # Unused code
+    - gosec # Security
+    - revive # Style checks
+
+run:
+  deadline: 5m
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

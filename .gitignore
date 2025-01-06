@@ -16,3 +16,6 @@
 
 # Output of make
 /bin
+
+# ignore the local env file
+.envrc

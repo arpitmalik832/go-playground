@@ -3,7 +3,7 @@ package octocat
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 )
@@ -42,10 +42,10 @@ func Get(octocat *Octocat) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("Unexpected status code, %d, when fetching %s", resp.StatusCode, url)
+		return fmt.Errorf("unexpected status code, %d, when fetching %s", resp.StatusCode, url)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
