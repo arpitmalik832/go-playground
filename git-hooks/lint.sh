@@ -12,6 +12,7 @@ echo -e "${Green}Start - Linting of the code.${NC}"
 make lint-fix
 make formatter-fix
 make additional-checks-fix
+git add .
 
 echo -e "${Green}End - Linting of the code.${NC}"
 

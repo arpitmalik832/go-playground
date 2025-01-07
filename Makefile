@@ -3,6 +3,7 @@ mainFile := src/main.go
 .PHONY: prepare
 prepare:
 	chmod +x git-hooks/*
+	chmod +x scripts/*
 	lefthook install
 
 .PHONY: build
@@ -131,3 +132,7 @@ e2e-tests:
 .PHONY: e2e-tests-pre-commit
 e2e-tests-pre-commit:
 	./git-hooks/e2eTests.sh
+
+.PHONY: commit
+commit:
+	./scripts/commit.sh
