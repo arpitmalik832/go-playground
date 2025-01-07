@@ -8,11 +8,17 @@ pre-commit:
   commands:
     fileSizes:
       run: make fileSizes-pre-commit
+    vulnerability-check:
+      run: make vulnerability-check-pre-commit
     lint:
       run: make lint-pre-commit
+    test-coverage-check:
+      run: make test-coverage-check-pre-commit
+    e2e-tests:
+      run: make e2e-tests-pre-commit
 
 pre-push:
   parallel: true
   commands:
     validate-branch-name:
-      run: make validate-branch-name
+      run: make validate-branch-name-pre-commit

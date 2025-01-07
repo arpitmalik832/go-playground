@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 
-	"arpitmalik832/golang-playground/octocat"
+	"arpitmalik832/golang-playground/src/greeting"
+	"arpitmalik832/golang-playground/src/octocat"
 )
 
 func main() {
-	greeting()
+	fmt.Println(greeting.Welcome())
 
 	var o octocat.Octocat
 	err := octocat.Get(&o)

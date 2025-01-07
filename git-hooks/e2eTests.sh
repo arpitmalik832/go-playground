@@ -7,12 +7,10 @@ NC="\033[0m" # No Color
 # validate linting of the code before commit.
 echo -e "\n${Blue}=================================${NC}\n"
 
-echo -e "${Green}Start - Linting of the code.${NC}"
+echo -e "${Green}Start - E2E testing of the Code.${NC}"
 
-make lint-fix
-make formatter-fix
-make additional-checks-fix
+make e2e-tests
 
-echo -e "${Green}End - Linting of the code.${NC}"
+echo -e "${Green}End - E2E testing of the Code.${NC}"
 
 echo -e "\n${Blue}=================================${NC}\n"
