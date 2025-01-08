@@ -3,19 +3,11 @@ package main
 import (
 	"fmt"
 
-	"arpitmalik832/golang-playground/src/greeting"
-	"arpitmalik832/golang-playground/src/octocat"
+	"arpitmalik832/go-template/src/greeting"
 )
 
 func main() {
 	fmt.Println(greeting.Welcome())
 
-	var o octocat.Octocat
-	err := octocat.Get(&o)
-
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("%s, based in %s, has %d followers. For more info, see: %s.\n", o.Name, o.Location, o.Followers, o.URL)
+	fmt.Printf("good to see you here.")
 }
