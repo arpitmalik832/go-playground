@@ -60,8 +60,7 @@ release:
 	git tag -a $$version -m "Release $$version" && \
 	echo "Running goreleaser..." && \
 	if goreleaser release --clean; then \
-		echo "Release successful, pushing tag..." && \
-		git push origin $$version; \
+		echo "Release successful!"; \
 	else \
 		echo "Release failed, deleting tag..." && \
 		git tag -d $$version && \
