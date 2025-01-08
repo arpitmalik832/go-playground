@@ -53,6 +53,13 @@ additional-checks-fix:
 	@echo "Running additional checks..."
 	@go vet ./...
 
+.PHONY: update-changelog
+update-changelog:
+	@echo "Generating changelog..."
+	@git-chglog -o CHANGELOG.md
+	@git add CHANGELOG.md
+	@git commit -m "chore(main): updating changelog"
+
 .PHONY: release
 release:
 	@read -p "Enter version (e.g., v1.0.0): " version; \
