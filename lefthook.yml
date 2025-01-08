@@ -16,6 +16,10 @@ pre-commit:
       run: make test-coverage-check-pre-commit
     e2e-tests:
       run: make e2e-tests-pre-commit
+    build:
+      run: make build
+    size-watch:
+      run: make size-watch
 
 pre-push:
   parallel: true
