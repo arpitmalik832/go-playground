@@ -53,12 +53,27 @@ additional-checks-fix:
 	@echo "Running additional checks..."
 	@go vet ./...
 
+.PHONY: update-changelog
+update-changelog:
+	@echo "Generating changelog..."
+	@git-chglog -o CHANGELOG.md
+	@git add CHANGELOG.md
+	@git commit -m "chore(main): updating changelog"
+
 .PHONY: release
 release:
 	@read -p "Enter version (e.g., v1.0.0): " version; \
-	git tag -a $$version -m "Release $$version"; \
-	git push origin $$version; \
-	goreleaser release --clean
+	echo "Creating tag $$version..."; \
+	git tag -a $$version -m "Release $$version" && \
+	echo "Running goreleaser..." && \
+	if goreleaser release --clean; then \
+		echo "Release successful!"; \
+	else \
+		echo "Release failed, deleting tag..." && \
+		git tag -d $$version && \
+		echo "Tag $$version deleted."; \
+		exit 1; \
+	fi
 
 # For testing release process
 .PHONY: release-dry-run
@@ -136,3 +151,18 @@ e2e-tests-pre-commit:
 .PHONY: commit
 commit:
 	./scripts/commit.sh
+
+.PHONY: size-watch
+size-watch: build
+	@echo "Checking binary size..."
+	@size_bytes=$$(stat -f %z bin/main 2>/dev/null || stat -c %s bin/main); \
+	size_mb=$$(echo "scale=2; $$size_bytes/1048576" | bc); \
+	echo "Binary size: $$size_mb MB"; \
+	if [ $$size_bytes -gt 10485760 ]; then \
+		echo "Warning: Binary size ($$size_mb MB) exceeds 10MB limit"; \
+		exit 1; \
+	fi
+
+.PHONY: size-watch-pre-commit
+size-watch-pre-commit:
+	./git-hooks/sizeWatch.sh
