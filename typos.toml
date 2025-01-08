@@ -1,0 +1,7 @@
+[files]
+extend-exclude = [
+    "vendor/*",
+    "testdata/*",
+    "go.mod",
+    "go.sum"
+]
