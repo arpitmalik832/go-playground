@@ -136,3 +136,18 @@ e2e-tests-pre-commit:
 .PHONY: commit
 commit:
 	./scripts/commit.sh
+
+.PHONY: size-watch
+size-watch: build
+	@echo "Checking binary size..."
+	@size_bytes=$$(stat -f %z bin/main 2>/dev/null || stat -c %s bin/main); \
+	size_mb=$$(echo "scale=2; $$size_bytes/1048576" | bc); \
+	echo "Binary size: $$size_mb MB"; \
+	if [ $$size_bytes -gt 10485760 ]; then \
+		echo "Warning: Binary size ($$size_mb MB) exceeds 10MB limit"; \
+		exit 1; \
+	fi
+
+.PHONY: size-watch-pre-commit
+size-watch-pre-commit:
+	./git-hooks/sizeWatch.sh
