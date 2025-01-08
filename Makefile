@@ -56,9 +56,9 @@ additional-checks-fix:
 .PHONY: release
 release:
 	@read -p "Enter version (e.g., v1.0.0): " version; \
+	goreleaser release --clean
 	git tag -a $$version -m "Release $$version"; \
 	git push origin $$version; \
-	goreleaser release --clean
 
 # For testing release process
 .PHONY: release-dry-run
