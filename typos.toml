@@ -1,12 +1,7 @@
-[default]
-extend-ignore-re = [
-    "(?i)^go\\.mod$",        # Ignore go.mod file names
-    "(?i)^go\\.sum$",        # Ignore go.sum file names
-    "[A-Z][a-z]+([A-Z][a-z]+)*", # Ignore GoLang camelCase
-]
-
 [files]
 extend-exclude = [
     "vendor/*",
     "testdata/*",
+    "go.mod",
+    "go.sum"
 ]
