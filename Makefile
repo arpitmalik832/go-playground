@@ -56,9 +56,18 @@ additional-checks-fix:
 .PHONY: release
 release:
 	@read -p "Enter version (e.g., v1.0.0): " version; \
-	git tag -a $$version -m "Release $$version"; \
-	goreleaser release --clean; \
-	git push origin $$version
+	echo "Creating tag $$version..."; \
+	git tag -a $$version -m "Release $$version" && \
+	echo "Running goreleaser..." && \
+	if goreleaser release --clean; then \
+		echo "Release successful, pushing tag..." && \
+		git push origin $$version; \
+	else \
+		echo "Release failed, deleting tag..." && \
+		git tag -d $$version && \
+		echo "Tag $$version deleted."; \
+		exit 1; \
+	fi
 
 # For testing release process
 .PHONY: release-dry-run
