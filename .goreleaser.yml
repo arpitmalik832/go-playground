@@ -9,6 +9,7 @@ release:
 
 builds:
   - id: go-template
+    main: ./cmd/main.go
     goos:
       - linux
       - windows
@@ -17,7 +18,6 @@ builds:
       - amd64
       - arm64
     dir: .
-    main: .
     binary: go-template
     builder: go
     gobinary: go
