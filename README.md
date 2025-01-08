@@ -1,4 +1,4 @@
-# `golang-playground`
+# `go-template`
 
 ## Build
 
