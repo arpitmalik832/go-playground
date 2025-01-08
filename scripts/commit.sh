@@ -4,14 +4,24 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
+# Define validate_length function first
+validate_length() {
+	local input="$1"
+	local max_length="$2"
+	if [ ${#input} -gt $max_length ]; then
+		return 1
+	fi
+	return 0
+}
+
 # Check if gum is installed
 if ! command -v gum &> /dev/null; then
-    echo "Installing gum..."
-    brew install gum || {
-        echo -e "${RED}Failed to install gum. Please install it manually:${NC}"
-        echo "brew install gum"
-        exit 1
-    }
+	echo "Installing gum..."
+	brew install gum || {
+		echo -e "${RED}Failed to install gum. Please install it manually:${NC}"
+		echo "brew install gum"
+		exit 1
+	}
 fi
 
 # Available options
@@ -44,24 +54,49 @@ body=$(gum write --placeholder "Enter commit body (optional, press Ctrl+D when d
 echo -e "\n${GREEN}Is this a breaking change:${NC}"
 breaking=$(gum confirm "Is this a breaking change?" && echo "true" || echo "false")
 
-# Build commit message
-message="$type($scope): $description"
+# Build commit message parts separately
+header="$type($scope): $description"
 
-if [ -n "$body" ]; then
-    message="$message\n\n$body"
-fi
-
-if [ "$breaking" = "true" ]; then
-    message="$message\n\nBREAKING CHANGE: Yes"
+# Validate header length
+if ! validate_length "$header" 50; then
+	echo -e "${RED}Commit message too long (max 50 chars). Please try again.${NC}"
+	exit 1
 fi
 
 # Show preview
 echo -e "\n${BLUE}=== Commit Preview ===${NC}"
-echo -e "${GREEN}$message${NC}"
+echo -e "\n${GREEN}$header${NC}"
+if [ -n "$body" ]; then
+	echo -e "\n${GREEN}$body${NC}"
+fi
+if [ "$breaking" = "true" ]; then
+	echo -e "\n${GREEN}BREAKING CHANGE: Yes${NC}"
+fi
 echo -e "\n${BLUE}=====================${NC}\n"
 
+# Commit with proper message formatting
+makeCommit () {
+	if [ "$breaking" = "true" ]; then
+		if [ -n "$body" ]; then
+			git commit -m "$header" -m "$body" -m "BREAKING CHANGE: Yes"
+		else
+			git commit -m "$header" -m "BREAKING CHANGE: Yes"
+		fi
+	else
+		if [ -n "$body" ]; then
+			git commit -m "$header" -m "$body"
+		else
+			git commit -m "$header"
+		fi
+	fi || {
+		echo -e "${RED}Commit aborted${NC}"
+		exit 1
+	}
+}
+
+
 # Confirm
-gum confirm "Proceed with commit?" && git commit -m "$message" || {
-    echo -e "${RED}Commit aborted${NC}"
-    exit 1
-} 
+gum confirm "Proceed with commit?" && makeCommit || {
+	echo -e "${RED}Commit aborted${NC}"
+	exit 1
+}
