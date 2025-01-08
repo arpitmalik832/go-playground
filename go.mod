@@ -1,4 +1,4 @@
-module arpitmalik832/golang-playground
+module arpitmalik832/go-template
 
 go 1.23.4
 
