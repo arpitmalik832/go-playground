@@ -53,12 +53,27 @@ additional-checks-fix:
 	@echo "Running additional checks..."
 	@go vet ./...
 
+.PHONY: update-changelog
+update-changelog:
+	@echo "Generating changelog..."
+	@git-chglog -o CHANGELOG.md
+	@git add CHANGELOG.md
+	@git commit -m "chore(main): updating changelog"
+
 .PHONY: release
 release:
 	@read -p "Enter version (e.g., v1.0.0): " version; \
-	git tag -a $$version -m "Release $$version"; \
-	git push origin $$version; \
-	goreleaser release --clean
+	echo "Creating tag $$version..."; \
+	git tag -a $$version -m "Release $$version" && \
+	echo "Running goreleaser..." && \
+	if goreleaser release --clean; then \
+		echo "Release successful!"; \
+	else \
+		echo "Release failed, deleting tag..." && \
+		git tag -d $$version && \
+		echo "Tag $$version deleted."; \
+		exit 1; \
+	fi
 
 # For testing release process
 .PHONY: release-dry-run

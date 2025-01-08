@@ -1,9 +1,15 @@
-before:
-  hooks:
-    - go mod tidy
+project_name: go-template
+dist: bin # Changed from 'dist' to 'bin'
+
+release:
+  github:
+    owner: arpitmalik832
+    name: go-template
+  name_template: "{{.Tag}}"
+
 builds:
-  - env:
-      - CGO_ENABLED=0
+  - id: go-template
+    main: ./src/main.go
     goos:
       - linux
       - windows
@@ -11,10 +17,36 @@ builds:
     goarch:
       - amd64
       - arm64
-changelog:
-  sort: asc
-  filters:
-    exclude:
-      - "^docs:"
-      - "^test:"
-      - "^chore:"
+    dir: .
+    binary: go-template
+    builder: go
+    gobinary: go
+    command: build
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
+    env:
+      - CGO_ENABLED=0
+
+archives:
+  - id: default
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format: tar.gz
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
+  algorithm: sha256
+
+# Update paths that reference the dist directory
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+
+source:
+  name_template: "{{ .ProjectName }}-{{ .Version }}"
+  format: tar.gz
