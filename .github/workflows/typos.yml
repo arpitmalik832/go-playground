@@ -1,0 +1,19 @@
+name: Spellcheck
+
+on:
+  pull_request:
+    branches:
+      - development
+      - staging
+      - beta
+      - release
+      - master
+      - "feature-*"
+
+jobs:
+  typos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Running typos check
+        uses: crate-ci/typos@master
