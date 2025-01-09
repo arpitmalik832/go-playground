@@ -12,7 +12,7 @@ make
 ./bin/main
 ```
 
-## Neccessary dependencies to improve dev experience:
+## Necessary dependencies to improve dev experience:
 
 ### Globally installed packages:
 
