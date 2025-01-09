@@ -19,7 +19,7 @@ preview:
 .PHONY: run
 run: $(mainFile)
 	@echo "Running the main file..."
-	@go run $^
+	@air
 
 .PHONY: fileSizes-pre-commit
 fileSizes-pre-commit:
@@ -61,7 +61,7 @@ update-changelog:
 	@git commit -m "chore(main): updating changelog"
 
 .PHONY: release
-release:
+release: update-changelog
 	@read -p "Enter version (e.g., v1.0.0): " version; \
 	echo "Creating tag $$version..."; \
 	git tag -a $$version -m "Release $$version" && \
