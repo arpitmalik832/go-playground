@@ -19,7 +19,7 @@ preview:
 .PHONY: run
 run: $(mainFile)
 	@echo "Running the main file..."
-	@go run $^
+	@air
 
 .PHONY: fileSizes-pre-commit
 fileSizes-pre-commit:
