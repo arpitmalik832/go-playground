@@ -61,13 +61,14 @@ update-changelog:
 	@git commit -m "chore(main): updating changelog"
 
 .PHONY: release
-release:
+release: update-changelog
 	@read -p "Enter version (e.g., v1.0.0): " version; \
 	echo "Creating tag $$version..."; \
 	git tag -a $$version -m "Release $$version" && \
 	echo "Running goreleaser..." && \
 	if goreleaser release --clean; then \
-		echo "Release successful!"; \
+		echo "Release successful!" && \
+		git push; \
 	else \
 		echo "Release failed, deleting tag..." && \
 		git tag -d $$version && \
